@@ -8,8 +8,8 @@ Since this was my first time building a Ruby on Rails app, I want to note that I
 Clone the repo:
 
 ```
-git clone <your-repo-url>
-cd <your-project-folder>
+git clone https://github.com/nikitadesir/Property_Importer
+cd property_importer
 ```
 Install dependencies:
 

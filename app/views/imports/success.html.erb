@@ -1,0 +1,30 @@
+<div class="space-y-8">
+
+  <div class="p-6 bg-green-500 text-white rounded space-y-4">
+    <h1 class="font-header text-3xl font-extrabold">
+      Upload Complete
+    </h1>
+
+    <p class="text-white opacity-90 text-lg">
+      Your property and unit data has been successfully uploaded into the database.
+    </p>
+  </div>
+
+  <div class="space-y-4">
+    <h2 class="font-header text-2xl font-extrabold text-black-900">
+      What happens next:
+    </h2>
+
+    <p class="text-black-700 leading-relaxed">
+      All valid rows from your CSV have been added. Any rows with errors were skipped during the upload process.
+      You can now upload another file if needed.
+    </p>
+  </div>
+
+  <div class="flex gap-4 pt-4">
+    <%= link_to "Upload Another File",
+                new_import_path,
+                class: "bg-green-500 text-white px-4 py-2 rounded" %>
+  </div>
+
+</div>

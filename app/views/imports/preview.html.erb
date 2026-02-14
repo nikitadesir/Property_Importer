@@ -1,0 +1,124 @@
+<div class="space-y-6">
+
+  <h1 class="font-header text-3xl font-extrabold text-black-900">
+    Preview File Upload
+  </h1>
+
+  <p class="text-black-600 font-bold">
+    Please review the following summary before confirming the upload to the database.
+  </p>
+
+  
+  <div class="space-y-4 p-4 bg-blue-500 text-white rounded">
+    <h2 class="font-header text-2xl font-extrabold">Summary</h2>
+
+    <p class="opacity-90">
+      Below is a detailed preview of what will be uploaded to the database.
+    </p>
+
+  
+    <% if @output.new_properties.any? %>
+      <div class="space-y-1">
+        <h3 class="font-bold text-lg">New Properties (<%= @output.new_properties.count %>)</h3>
+        <ul class="list-disc list-inside space-y-1">
+          <% @output.new_properties.each do |prop| %>
+            <li>
+              <%= prop[:building_name] %> —
+              <%= prop[:street] %>, <%= prop[:city] %>, <%= prop[:state] %> <%= prop[:zip] %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+ 
+    <% if @output.existing_properties.any? %>
+      <div class="space-y-1">
+        <h3 class="font-bold text-lg">Existing Properties (<%= @output.existing_properties.count %>)</h3>
+        <ul class="list-disc list-inside space-y-1">
+          <% @output.existing_properties.each do |prop| %>
+            <li>
+              <%= prop[:building_name] %> —
+              <%= prop[:street] %>, <%= prop[:city] %>, <%= prop[:state] %> <%= prop[:zip] %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  
+    <% if @output.new_units.any? %>
+      <div class="space-y-1">
+        <h3 class="font-bold text-lg">New Units (<%= @output.new_units.count %>)</h3>
+        <ul class="list-disc list-inside space-y-1">
+          <% @output.new_units.each do |unit| %>
+            <li>
+              Unit <%= unit[:unit_number] %> —
+              <%= unit[:building_name] %>
+              (<%= unit[:street] %>, <%= unit[:city] %>)
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+
+ 
+  <% if @output.errors.any? %>
+    <div class="space-y-2 p-4 bg-red-50 rounded">
+      <h3 class="text-red-600 font-bold text-lg">Errors</h3>
+      <ul class="list-disc list-inside space-y-1">
+        <% @output.errors.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <% if @output.excluded_rows.any? %>
+    <div class="space-y-2 p-4 bg-red-100 rounded">
+      <h3 class="text-red-700 font-bold text-lg">Rows That Will Be Excluded</h3>
+
+      <p class="text-red-700 opacity-80">
+        These rows contain errors and will NOT be imported.
+      </p>
+
+      <ul class="list-disc list-inside space-y-1 text-red-900">
+        <% @output.excluded_rows.each do |row| %>
+          <li>
+            <span class="font-bold">Row <%= row[:row] %>:</span>
+            <%= row[:data].values.join(" | ") %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <% if @output.duplicates.any? %>
+    <div class="space-y-2 p-4 bg-yellow-50 rounded">
+      <h3 class="text-yellow-600 font-bold text-lg">Duplicates (Will Be Ignored)</h3>
+      <ul class="list-disc list-inside space-y-1">
+        <% @output.duplicates.each do |duplicate| %>
+          <li><%= duplicate %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ 
+  <%= form_with url: confirm_imports_path, method: :post, data: { turbo: false }, local: true do |form| %>
+    <%= hidden_field_tag :temp_file_path, @temp_file_path %>
+
+    <div class="flex gap-4 pt-4">
+      <%= form.submit "Confirm Upload", class: "bg-green-500 text-white px-4 py-2 rounded" %>
+      <%= link_to "Cancel", new_import_path, class: "bg-red-500 text-white px-4 py-2 rounded" %>
+    </div>
+  <% end %>
+
+</div>
+
+
+
+

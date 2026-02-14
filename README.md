@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Property Importer
 ## Description
 This is a Ruby on Rails app I built to upload property data from a CSV file in order to onboard new customers. I tried to structure the app so that it's user‑friendly and would be easy for the customer success team to use: you upload a CSV, the app shows you a preview of what it’s going to upload, and then you confirm the upload if everything looks good before saving to the database. The Property Importer is designed to handle any inconsistent data in the CSVs customer success might receive from new clients, such as missing fields, weird spacing, inconsistent capitalization, duplicate units, duplicate properties, or even odd encoding issues.
